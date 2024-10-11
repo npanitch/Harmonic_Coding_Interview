@@ -40,6 +40,8 @@ def get_all_collection_metadata(
         for collection in collections
     ]
 
+"""This function returns a list of all the company ids in a given collection.
+I mainly wrote this api so we can get all the IDs for adding a whole collection to another"""
 @router.get("/ids/{collection_id}", response_model=list[int])
 def get_collection_companies_by_id(
     collection_id: uuid.UUID,
@@ -107,6 +109,7 @@ def connect_company_to_collection(
     
     return 1
 
+"""Creates a new collection"""
 @router.put("/new_collection/{collection_name}", response_model=CompanyCollectionMetadata)
 def create_collection(
     collection_name: str, 

@@ -83,10 +83,4 @@ def get_company_with_id(
     result = db.query(database.Company).filter(database.Company.id == id).first()
     company = fetch_companies_with_liked(db, [company.id for company in [result]])
     return company[0] 
-
-""" @router.put("/{company_id}")
-def update_company(
-    liked: bool,
-    db: Session = Depends(database.get_db),
-): """
     
