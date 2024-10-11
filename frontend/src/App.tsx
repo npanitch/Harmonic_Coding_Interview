@@ -49,29 +49,6 @@ function App() {
     setModal(false)
   }
 
-  const modalChildren = () => {
-    return(
-      <div>
-        <TextField
-          id="outlined-collection-input"
-          label="NewCollectionName"
-          type="new collection"
-          value={newCollectionName}
-          onChange={(event) => setNewCollectionName(event.target.value)}
-        />
-        <button className={"bg-orange-500 text-white font-bold py-2 px-4 rounded hover:bg-orange-300"}
-        onClick={createCollection}
-        >Add Collection</button>
-      </div>
-    );
-  }
-
-  const createCollection = () => {
-    createNewCollection(newCollectionName);
-    setNewCollectionName("");
-    setModal(false)
-  }
-
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
