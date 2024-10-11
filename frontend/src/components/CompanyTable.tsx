@@ -78,10 +78,10 @@ const CompanyTable = (props: { selectedCollectionId: string, collectionResponse:
     return(
       <div>
         <button 
-          className={loading ? "bg-grey-800 text-white font-bold py-2 px-4 rounded hover:bg-grey-600" : "bg-orange-500 text-white font-bold py-2 px-4 rounded hover:bg-orange-300"}
+          className={loading ? "bg-grey-800 text-white font-bold py-2 px-4 rounded hover:bg-grey-600 mr-1" : "bg-orange-500 text-white font-bold py-2 px-4 rounded hover:bg-orange-300 mr-1"}
           onClick={() => setOpenModal(true)}
           disabled={loading}>
-          {loading ? ('Adding to Collection') : ('Add to Collection')}
+          {loading ? ('Adding to Collection') : ('Add Selected to Collection')}
         </button>
         <MyModal openModal={openModal} setOpenModal={setOpenModal} children={collectionList()}/>
       </div>
