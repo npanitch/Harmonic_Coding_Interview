@@ -4,8 +4,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import CompanyTable from "./components/CompanyTable";
-import { getCollectionsMetadata } from "./utils/jam-api";
+import { createNewCollection, getCollectionsMetadata } from "./utils/jam-api";
 import useApi from "./utils/useApi";
+import MyModal from "./components/MyModal";
+import { TextField } from "@mui/material";
 
 const darkTheme = createTheme({
   palette: {
@@ -17,9 +19,35 @@ function App() {
   const [selectedCollectionId, setSelectedCollectionId] = useState<string>();
   const { data: collectionResponse } = useApi(() => getCollectionsMetadata());
 
+  const [modal, setModal] = useState<boolean>(false);
+  const [newCollectionName, setNewCollectionName] = useState<string>('');
+
   useEffect(() => {
     setSelectedCollectionId(collectionResponse?.[0]?.id);
   }, [collectionResponse]);
+
+  const modalChildren = () => {
+    return(
+      <div>
+        <TextField
+          id="outlined-collection-input"
+          label="NewCollectionName"
+          type="new collection"
+          value={newCollectionName}
+          onChange={(event) => setNewCollectionName(event.target.value)}
+        />
+        <button className={"bg-orange-500 text-white font-bold py-2 px-4 rounded hover:bg-orange-300"}
+        onClick={createCollection}
+        >Add Collection</button>
+      </div>
+    );
+  }
+
+  const createCollection = () => {
+    createNewCollection(newCollectionName);
+    setNewCollectionName("");
+    setModal(false)
+  }
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -48,9 +76,11 @@ function App() {
                 );
               })}
               <div
-              className={`py-1 hover:cursor-pointer hover:bg-orange-300`}>
+              className={`py-1 hover:cursor-pointer hover:bg-orange-300`}
+              onClick={() => setModal(true)}>
                 Add collection +
               </div>
+              <MyModal openModal={modal} setOpenModal={setModal} children={modalChildren()}></MyModal>
             </div>
           </div>
           <div className="w-4/5 ml-4">
