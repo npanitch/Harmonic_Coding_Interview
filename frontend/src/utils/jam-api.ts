@@ -82,3 +82,13 @@ export async function setCompanyToList(ids: number[], collection: string): Promi
         throw error
     }
 }
+
+export async function createNewCollection(name: string): Promise<void>{
+    try {
+        await axios.put(`${BASE_URL}/collections/new_collection/${name}`);
+        return
+    } catch (error) {
+        console.error('Error creating collection', error)
+        throw error
+    }
+}
